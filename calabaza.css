@@ -1,0 +1,423 @@
+/* calabaza.css — Tema CLARO (editorial + limpio + accesible)
+   - Sin fondos oscuros
+   - Canvas siempre visible
+   - UI moderna, minimalista
+   - Responsive: Android + tablets + desktop
+   - No requiere cambios en tu HTML
+*/
+
+/* ----------------------------
+   1) Design Tokens
+----------------------------- */
+:root{
+  --bg: #fbfcff;
+  --paper: #ffffff;
+  --paper-2: #f7f8fc;
+  --stroke: rgba(15,23,42,0.10);
+  --stroke-2: rgba(15,23,42,0.16);
+
+  --text: #0b1220;
+  --muted: rgba(2,6,23,0.68);
+  --muted2: rgba(2,6,23,0.55);
+
+  --primary: #2563eb;
+  --primary-2: #60a5fa;
+
+  --ok: #16a34a;
+  --ok-bg: rgba(22,163,74,0.10);
+
+  --warn: #d97706;
+  --warn-bg: rgba(217,119,6,0.10);
+
+  --bad: #dc2626;
+  --bad-bg: rgba(220,38,38,0.10);
+
+  --shadow-lg: 0 18px 46px rgba(16,24,40,0.10);
+  --shadow-md: 0 12px 28px rgba(16,24,40,0.08);
+  --shadow-sm: 0 8px 18px rgba(16,24,40,0.06);
+
+  --radius-xl: 18px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 10px;
+
+  --ring: 0 0 0 4px rgba(37,99,235,0.18);
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+
+  color-scheme: light;
+}
+
+/* ----------------------------
+   2) Base
+----------------------------- */
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  padding:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+
+  /* Fondo MUY CLARO, suave */
+  background:
+    radial-gradient(900px 520px at 15% 0%, rgba(96,165,250,0.18), transparent 60%),
+    radial-gradient(900px 520px at 85% 10%, rgba(37,99,235,0.10), transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,1)),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+h1,h2,h3{ letter-spacing: -0.02em; }
+strong{ font-weight: 800; }
+
+/* ----------------------------
+   3) Layout principal del simulador
+----------------------------- */
+.wrap{
+  max-width: 1250px;
+  margin: 26px auto;
+  padding: 0 16px;
+}
+
+.top{
+  display:flex;
+  gap: 14px;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  justify-content:space-between;
+  margin-bottom: 14px;
+}
+
+/* ✅ asegura que el bloque del texto use todo el ancho (móvil/tablet) */
+.top > div{
+  flex: 1 1 100%;
+}
+
+h1{
+  margin:0;
+  font-size: clamp(18px, 2.2vw, 26px);
+  line-height: 1.25;
+}
+
+/* ✅ Texto principal (intro) — responsive y menos “estrecho” */
+.sub{
+  margin: 14px 0 18px;
+  color: var(--text);
+  max-width: 92ch; /* más ancho sin perder legibilidad */
+  font-size: clamp(1.02rem, 0.95rem + 0.6vw, 1.18rem);
+  line-height: 1.85;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 1020px){
+  .grid{ grid-template-columns: 1.05fr .95fr; }
+}
+
+.card{
+  background: var(--paper);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-xl);
+  padding: 14px;
+  box-shadow: var(--shadow-lg);
+}
+
+.card h2{
+  margin:0 0 8px;
+  font-size: 16px;
+}
+
+/* chips */
+.chips{ display:flex; gap:10px; flex-wrap:wrap; }
+.chip{
+  background: rgba(255,255,255,0.85);
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-size: 12.7px;
+  color: var(--muted);
+  box-shadow: var(--shadow-sm);
+}
+.chip strong{ color: var(--text); }
+
+/* ----------------------------
+   4) Bloques informativos
+----------------------------- */
+.note{
+  background: rgba(217,119,6,0.08);
+  border: 1px solid rgba(217,119,6,0.22);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: var(--radius-lg);
+  line-height: 1.65;
+  font-size: 13.2px;
+}
+
+.small{
+  margin: 8px 0 0;
+  font-size: 12.8px;
+  color: var(--muted2);
+  line-height: 1.65;
+}
+
+.mono{
+  font-family: var(--mono);
+  font-size: 12.7px;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+/* ----------------------------
+   5) Controles
+----------------------------- */
+.controls{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@media(min-width: 720px){
+  .controls{ grid-template-columns: 1fr 1fr 1fr; }
+}
+
+label{
+  display:block;
+  font-size: 12.5px;
+  color: var(--muted2);
+  margin: 0 0 6px;
+}
+
+select, input[type="number"], input[type="text"]{
+  width:100%;
+  padding: 10px 11px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--stroke-2);
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  font-weight: 700;
+  box-shadow: 0 1px 0 rgba(16,24,40,0.03);
+  transition: box-shadow .14s ease, border-color .14s ease;
+}
+
+select:focus, input[type="number"]:focus, input[type="text"]:focus{
+  border-color: rgba(37,99,235,0.55);
+  box-shadow: var(--ring);
+}
+
+input[type="range"]{
+  width:100%;
+  accent-color: var(--primary);
+}
+
+.btnrow{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top: 10px;
+}
+
+button{
+  border:1px solid rgba(37,99,235,0.28);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-weight: 800;
+  cursor:pointer;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(37,99,235,.98), rgba(96,165,250,.88));
+  box-shadow: 0 10px 20px rgba(37,99,235,0.16);
+  transition: transform .08s ease, box-shadow .12s ease, filter .12s ease;
+}
+
+button:hover{
+  filter: brightness(1.02);
+  box-shadow: 0 12px 24px rgba(37,99,235,0.20);
+}
+
+button:active{ transform: translateY(1px); }
+
+button.secondary{
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--stroke-2);
+  box-shadow: var(--shadow-sm);
+}
+
+button.secondary:hover{
+  box-shadow: var(--shadow-md);
+}
+
+/* ----------------------------
+   6) Tablas (claras + responsive)
+----------------------------- */
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  overflow:hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--stroke);
+  background: #fff;
+
+  /* ✅ móvil/tablet: tabla desplazable si es necesario */
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+th, td{
+  padding: 10px 10px;
+  border-bottom: 1px solid var(--stroke);
+  text-align: center;
+  font-size: clamp(12.6px, 12px + 0.15vw, 13.6px);
+  white-space: nowrap;
+}
+
+th{
+  background: #f3f4f6;
+  color: var(--text);
+  font-weight: 900;
+}
+
+tr:last-child td{ border-bottom: none; }
+
+/* ----------------------------
+   7) Zona de gráficos (canvas)
+----------------------------- */
+.split{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media(min-width: 1020px){
+  .split{ grid-template-columns: 1fr 1fr; }
+}
+
+.canvasWrap{
+  background: #fff;
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-xl);
+  padding: 10px;
+  box-shadow: var(--shadow-md);
+}
+
+/* ✅ aunque JS falle, el canvas se ve blanco */
+canvas{
+  width: 100%;
+  height: clamp(260px, 34vw, 340px);
+  display:block;
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+}
+
+/* leyenda */
+.legend{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top: 8px;
+  color: var(--muted2);
+  font-size: 12.5px;
+}
+.dot{
+  width:10px; height:10px;
+  border-radius:999px;
+  display:inline-block;
+  margin-right:6px;
+  background: var(--primary);
+}
+.dot2{ background: var(--ok); }
+.dot3{ background: var(--warn); }
+
+/* ----------------------------
+   8) KPI cards
+----------------------------- */
+.kpi{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@media(min-width: 900px){
+  .kpi{ grid-template-columns: 1fr 1fr 1fr 1fr; }
+}
+
+.kpi .box{
+  background: #fff;
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-lg);
+  padding: 10px;
+  min-height: 62px;
+  box-shadow: var(--shadow-sm);
+}
+
+.kpi .box .t{ font-size: 12px; color: var(--muted2); }
+.kpi .box .v{ font-size: 16px; font-weight: 950; margin-top: 4px; }
+
+/* ----------------------------
+   9) Steps
+----------------------------- */
+.steps{
+  margin-top: 10px;
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+@media(min-width: 720px){
+  .steps{ grid-template-columns: 1fr 1fr; }
+}
+
+.stepBox{
+  background: #fff;
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-xl);
+  padding: 10px 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.stepBox h3{
+  margin:0 0 6px;
+  font-size: 13.5px;
+}
+
+.stepBox .mono{
+  background: var(--paper-2);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  overflow:auto;
+}
+
+/* ----------------------------
+   10) Ajustes finos móvil (Android)
+----------------------------- */
+@media (max-width: 520px){
+  .wrap{ padding: 0 12px; margin: 18px auto; }
+  h1{ font-size: clamp(18px, 5vw, 22px); }
+  .chip{ font-size: 12.2px; padding: 6px 9px; }
+  .card{ padding: 12px; }
+}
+
+/* ----------------------------
+   11) Motion accessibility
+----------------------------- */
+@media (prefers-reduced-motion: reduce){
+  *{
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+
+
