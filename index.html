@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio de Probabilidad y Estadística</title>
+  
+  <link rel="stylesheet" href="style.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+  <div class="container">
+    
+    <header>
+      <h1>Portafolio de Probabilidad y Estadística</h1>
+      
+      <nav class="tabs-nav" style="display: flex; gap: 10px; margin-top: 20px; border-bottom: 2px solid var(--border-light); padding-bottom: 10px;">
+        <button class="tab-btn active" onclick="openTab(event, 'prob1')">1. Rendimiento</button>
+        <button class="tab-btn" onclick="openTab(event, 'prob2')">2. Covarianza</button>
+        <button class="tab-btn" onclick="openTab(event, 'prob3')">3. Problema 66</button>
+        <button class="tab-btn" onclick="openTab(event, 'prob4')">4. Distribuciones</button>
+      </nav>
+    </header>
+
+    <section id="prob1" class="tab-content" style="display: block;">
+      
+      <header>
+        <h2 style="color: var(--primary); margin-top: 1rem;">Análisis de Rendimiento de Jugadores (Temporada)</h2>
+        <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 900px; margin-bottom: 1.5rem;">
+          Un cuerpo técnico evalúa el desempeño de <strong>8 jugadores</strong> a lo largo de <strong>10 meses de competición</strong> (40 partidos). 
+          El objetivo es analizar la consistencia (Match Rating de 4.0 a 10.0), identificar altibajos en el rendimiento mediante diagramas de caja y bigotes, 
+          y observar la distribución histórica en histogramas de frecuencia.
+        </p>
+      </header>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div class="card" style="border-left: 4px solid var(--primary);">
+          <div style="font-size: 0.85rem; color: var(--text-muted);">Promedio de la Plantilla</div>
+          <div id="kpi-avg" style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">--</div>
+        </div>
+        <div class="card" style="border-left: 4px solid var(--success);">
+          <div style="font-size: 0.85rem; color: var(--text-muted);">Mejor Partido (Max)</div>
+          <div id="kpi-max" style="font-size: 1.8rem; font-weight: 800; color: var(--success);">--</div>
+        </div>
+        <div class="card" style="border-left: 4px solid var(--danger);">
+          <div style="font-size: 0.85rem; color: var(--text-muted);">Peor Partido (Min)</div>
+          <div id="kpi-min" style="font-size: 1.8rem; font-weight: 800; color: var(--danger);">--</div>
+        </div>
+      </div>
+
+      <div class="grid-layout">
+        <aside class="card">
+          <h2>Controles</h2>
+          
+          <div class="control-group">
+            <label for="playerSel">Seleccionar Jugador</label>
+            <select id="playerSel">
+              </select>
+          </div>
+
+          <div class="alert">
+            <strong>Tip analítico:</strong> Una caja pequeña indica que el jugador es muy consistente. Una caja alta indica irregularidad. Los puntos fuera de los bigotes son partidos excepcionalmente buenos o malos.
+          </div>
+
+          <button id="btnRegenerate">Simular Nueva Temporada</button>
+        </aside>
+
+        <main>
+          <div class="card" style="margin-bottom: 1.5rem;">
+            <h2>Evolución Mensual (Boxplot)</h2>
+            <div class="canvas-container">
+              <canvas id="boxplotCanvas" width="800" height="350"></canvas>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Distribución de Calificaciones (Histograma)</h2>
+            <div class="canvas-container">
+              <canvas id="histogramCanvas" width="800" height="300"></canvas>
+            </div>
+          </div>
+        </main>
+      </div>
+<div class="card" style="margin-top: 1.5rem;">
+        <h2>Estadísticos descriptivos por jugador (Toda la temporada)</h2>
+        <div class="table-wrapper">
+          <table id="statsTable">
+            <thead>
+              <tr>
+                <th>JUGADOR</th>
+                <th>N</th>
+                <th>MEDIA</th>
+                <th>MEDIANA</th>
+                <th>Q1</th>
+                <th>Q3</th>
+                <th>RIC</th>
+                <th>DESV. TÍP.</th>
+                <th>MÍN</th>
+                <th>MÁX</th>
+                <th>ATÍPICOS</th>
+              </tr>
+            </thead>
+            <tbody>
+              </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+    </section>
+
+    <section id="prob2" class="tab-content" style="display: none;">
+      
+      <div class="card" style="margin-bottom: 1.5rem; margin-top: 1rem;">
+        <h2 style="color: var(--primary);">Problema 25: El error del topógrafo</h2>
+        
+        <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--primary);">
+          <p>Un topógrafo desea delimitar una región cuadrada con \(L\) de lado. Sin embargo, debido a un error de medición, delimita en cambio un rectángulo en el cual los lados norte-sur son de longitud \(X\) y los lados este-oeste son de longitud \(Y\).</p>
+          <p>Suponga que \(X\) y \(Y\) son <strong>independientes</strong> y que cada uno está uniformemente distribuido en el intervalo \([L - A, L + A]\) (donde \(0 < A < L\)).</p>
+          <p><strong>¿Cuál es el área esperada del rectángulo resultante?</strong></p>
+        </div>
+
+        <h3 style="font-size: 1.05rem; color: var(--text-muted);">Desarrollo Paso a Paso:</h3>
+        
+        <p><strong>1. Definición del Área Esperada:</strong><br>
+        El área del rectángulo es el producto de sus lados, \(A = X \cdot Y\). Queremos calcular el valor esperado de esta área, es decir, \(E[XY]\).</p>
+        
+        <p><strong>2. Propiedad de Independencia:</strong><br>
+        El problema indica explícitamente que \(X\) y \(Y\) son independientes. Sabemos que si dos variables son independientes, su covarianza es cero, por lo tanto:</p>
+        $$ E[XY] = E[X] \cdot E[Y] $$
+
+        <p><strong>3. Esperanza de una Distribución Uniforme:</strong><br>
+        La esperanza matemática de una distribución uniforme continua en un intervalo \([a, b]\) es el punto medio \(\frac{a + b}{2}\).</p>
+        $$ E[X] = \frac{(L - A) + (L + A)}{2} = \frac{2L}{2} = L $$
+        $$ E[Y] = \frac{(L - A) + (L + A)}{2} = \frac{2L}{2} = L $$
+
+        <h3 style="font-size: 1.05rem; color: var(--success); margin-top: 15px;">Solución Final:</h3>
+        <p>Sustituyendo los valores esperados de \(X\) e \(Y\):</p>
+        $$ E[\text{Área}] = E[XY] = (L) \cdot (L) = L^2 $$
+        <p>El área esperada del rectángulo resultante es exactamente el área del cuadrado original.</p>
+      </div>
+
+      <div class="card">
+        <h2 style="color: var(--primary);">Problema 22: Calificaciones de un Examen</h2>
+        
+        <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--warning);">
+          <p>Un instructor aplicó un corto examen compuesto de dos partes. Sea \(X\) = puntos obtenidos en la primera parte y \(Y\) = puntos obtenidos en la segunda parte. La función de masa de probabilidad conjunta de \(X\) y \(Y\) se da en la tabla adjunta.</p>
+          <div style="overflow-x: auto; margin-top: 10px; background: white; padding: 10px; border-radius: 8px; border: 1px solid var(--border-light);">
+            <table style="width: 100%; text-align: center; border-collapse: collapse;">
+              <tr>
+                <th style="border-bottom: 1px solid #000; border-right: 1px solid #000; padding: 5px;">\(p(x, y)\)</th>
+                <th style="border-bottom: 1px solid #000; padding: 5px;">\(y=0\)</th>
+                <th style="border-bottom: 1px solid #000; padding: 5px;">\(y=5\)</th>
+                <th style="border-bottom: 1px solid #000; padding: 5px;">\(y=10\)</th>
+                <th style="border-bottom: 1px solid #000; padding: 5px;">\(y=15\)</th>
+              </tr>
+              <tr>
+                <td style="border-right: 1px solid #000; padding: 5px;"><strong>\(x=0\)</strong></td>
+                <td>0.02</td><td>0.06</td><td>0.02</td><td>0.10</td>
+              </tr>
+              <tr>
+                <td style="border-right: 1px solid #000; padding: 5px;"><strong>\(x=5\)</strong></td>
+                <td>0.04</td><td>0.15</td><td>0.20</td><td>0.10</td>
+              </tr>
+              <tr>
+                <td style="border-right: 1px solid #000; padding: 5px;"><strong>\(x=10\)</strong></td>
+                <td>0.01</td><td>0.15</td><td>0.14</td><td>0.01</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <h3 style="font-size: 1.05rem; color: var(--text-muted);">Inciso a) ¿Cuál es la calificación anotada esperada \(E(X + Y)\)?</h3>
+        
+        <p><strong>1. Calcular las probabilidades marginales:</strong><br>
+        Sumamos las filas para obtener \(P(X)\) y las columnas para obtener \(P(Y)\):</p>
+        <ul>
+          <li>\(P(X=0) = 0.02 + 0.06 + 0.02 + 0.10 = 0.20\)</li>
+          <li>\(P(X=5) = 0.04 + 0.15 + 0.20 + 0.10 = 0.49\)</li>
+          <li>\(P(X=10) = 0.01 + 0.15 + 0.14 + 0.01 = 0.31\)</li>
+        </ul>
+        <ul>
+          <li>\(P(Y=0) = 0.02 + 0.04 + 0.01 = 0.07\)</li>
+          <li>\(P(Y=5) = 0.06 + 0.15 + 0.15 = 0.36\)</li>
+          <li>\(P(Y=10) = 0.02 + 0.20 + 0.14 = 0.36\)</li>
+          <li>\(P(Y=15) = 0.10 + 0.10 + 0.01 = 0.21\)</li>
+        </ul>
+
+        <p><strong>2. Calcular las esperanzas marginales \(E(X)\) y \(E(Y)\):</strong></p>
+        $$ E(X) = \sum x \cdot P(x) = (0)(0.20) + (5)(0.49) + (10)(0.31) = 0 + 2.45 + 3.10 = 5.55 $$
+        $$ E(Y) = \sum y \cdot P(y) = (0)(0.07) + (5)(0.36) + (10)(0.36) + (15)(0.21) = 0 + 1.80 + 3.60 + 3.15 = 8.55 $$
+
+        <p><strong>3. Aplicar la linealidad de la esperanza:</strong></p>
+        $$ E(X + Y) = E(X) + E(Y) = 5.55 + 8.55 = \mathbf{14.10} $$
+
+        <h3 style="font-size: 1.05rem; color: var(--text-muted); margin-top: 25px;">Inciso b) Si se anota la máxima de las dos, ¿cuál es la calificación anotada esperada?</h3>
+        
+        <p>Para calcular \(E[\max(X, Y)]\), debemos multiplicar el valor máximo entre \(x\) e \(y\) de cada celda por su probabilidad conjunta \(p(x,y)\), y sumar todos los resultados:</p>
+        $$ E[\max(X,Y)] = \sum_{x} \sum_{y} \max(x,y) \cdot p(x,y) $$
+        
+        <p>Desglosando los cálculos por fila (x=0, x=5, x=10):</p>
+        <ul>
+          <li><strong>Fila \(x=0\):</strong> \((0)(0.02) + (5)(0.06) + (10)(0.02) + (15)(0.10) = 0 + 0.30 + 0.20 + 1.50 = 2.00\)</li>
+          <li><strong>Fila \(x=5\):</strong> \((5)(0.04) + (5)(0.15) + (10)(0.20) + (15)(0.10) = 0.20 + 0.75 + 2.00 + 1.50 = 4.45\)</li>
+          <li><strong>Fila \(x=10\):</strong> \((10)(0.01) + (10)(0.15) + (10)(0.14) + (15)(0.01) = 0.10 + 1.50 + 1.40 + 0.15 = 3.15\)</li>
+        </ul>
+
+        <p><strong>Solución:</strong> Sumamos los totales de cada fila:</p>
+        $$ E[\max(X,Y)] = 2.00 + 4.45 + 3.15 = \mathbf{9.60} $$
+      </div>
+    </section>
+
+    <section id="prob3" class="tab-content" style="display: none;">
+      
+      <div class="card" style="margin-top: 1rem; margin-bottom: 1.5rem;">
+        <h2 style="color: var(--primary);">Problema 66: Vacacionistas y Tecnología</h2>
+        
+        <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--primary);">
+          <p>Considere la siguiente información sobre vacacionistas: 40% revisan su correo de trabajo, 30% utilizan un celular para su trabajo, 25% trajeron una laptop, 23% revisan su correo y utilizan celular, y 51% ni revisan correo, ni utilizan celular, ni trajeron laptop. Además, 88 de cada 100 que traen laptop también revisan su correo, y 70 de cada 100 que utilizan celular también traen laptop.</p>
+        </div>
+
+        <h3 style="font-size: 1.05rem; color: var(--text-muted);">Definición de Eventos y Datos:</h3>
+        <p>Definimos los eventos:</p>
+        <ul>
+            <li>\( A \): Correo de trabajo \(\rightarrow P(A) = 0.40 \)</li>
+            <li>\( B \): Teléfono celular \(\rightarrow P(B) = 0.30 \)</li>
+            <li>\( C \): Laptop \(\rightarrow P(C) = 0.25 \)</li>
+        </ul>
+        <p>Intersecciones deducidas del texto:</p>
+        <ul>
+            <li>\( P(A \cap B) = 0.23 \)</li>
+            <li>\( P(A \cap C) = P(A|C)P(C) = (0.88)(0.25) = 0.22 \)</li>
+            <li>\( P(B \cap C) = P(C|B)P(B) = (0.70)(0.30) = 0.21 \)</li>
+            <li>Triple intersección calculada por Inclusión-Exclusión: \(\mathbf{P(A \cap B \cap C) = 0.20}\)</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.1rem; color: var(--success);">a. Probabilidad de que utilice celular dado que revisa su correo</h3>
+        
+        <div style="background-color: #1e293b; color: white; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
+          $$ P(B|A) = \frac{P(A \cap B)}{P(A)} = \frac{0.23}{0.40} = \mathbf{0.575} \text{ (57.5\%)} $$
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div style="text-align: center;">
+            <h4 style="color: var(--primary); margin-bottom: 5px;">Diagrama de VENN</h4>
+            <p style="margin-bottom: 10px;">$$ P(A \cap B) $$</p>
+            <canvas id="vennA1" width="300" height="250" style="background: #fff; border: 1px solid var(--border-light); border-radius: 8px; width: 100%; max-width: 300px;"></canvas>
+          </div>
+          <div style="text-align: center;">
+            <h4 style="color: var(--primary); margin-bottom: 5px;">Diagrama de VENN</h4>
+            <p style="margin-bottom: 10px;">$$ P(A) $$</p>
+            <canvas id="vennA2" width="300" height="250" style="background: #fff; border: 1px solid var(--border-light); border-radius: 8px; width: 100%; max-width: 300px;"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.1rem; color: var(--success);">b. Probabilidad de que utilice celular dado que trae laptop</h3>
+        
+        <div style="background-color: #1e293b; color: white; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
+          $$ P(B|C) = \frac{P(B \cap C)}{P(C)} = \frac{0.21}{0.25} = \mathbf{0.84} \text{ (84.0\%)} $$
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div style="text-align: center;">
+            <h4 style="color: var(--primary); margin-bottom: 5px;">Diagrama de VENN</h4>
+            <p style="margin-bottom: 10px;">$$ P(B \cap C) $$</p>
+            <canvas id="vennB1" width="300" height="250" style="background: #fff; border: 1px solid var(--border-light); border-radius: 8px; width: 100%; max-width: 300px;"></canvas>
+          </div>
+          <div style="text-align: center;">
+            <h4 style="color: var(--primary); margin-bottom: 5px;">Diagrama de VENN</h4>
+            <p style="margin-bottom: 10px;">$$ P(C) $$</p>
+            <canvas id="vennB2" width="300" height="250" style="background: #fff; border: 1px solid var(--border-light); border-radius: 8px; width: 100%; max-width: 300px;"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="font-size: 1.1rem; color: var(--success);">c. Probabilidad de que utilice celular dado que revisó correo y trajo laptop</h3>
+        
+        <div style="background-color: #1e293b; color: white; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
+          $$ P(B | A \cap C) = \frac{P(A \cap B \cap C)}{P(A \cap C)} = \frac{0.20}{0.22} \approx \mathbf{0.909} \text{ (90.9\%)} $$
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div style="text-align: center;">
+            <h4 style="color: var(--primary); margin-bottom: 5px;">Diagrama de VENN</h4>
+            <p style="margin-bottom: 10px;">$$ P(A \cap B \cap C) $$</p>
+            <canvas id="vennC1" width="300" height="250" style="background: #fff; border: 1px solid var(--border-light); border-radius: 8px; width: 100%; max-width: 300px;"></canvas>
+          </div>
+          <div style="text-align: center;">
+            <h4 style="color: var(--primary); margin-bottom: 5px;">Diagrama de VENN</h4>
+            <p style="margin-bottom: 10px;">$$ P(A \cap C) $$</p>
+            <canvas id="vennC2" width="300" height="250" style="background: #fff; border: 1px solid var(--border-light); border-radius: 8px; width: 100%; max-width: 300px;"></canvas>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="prob4" class="tab-content" style="display: none;">
+      
+      <header>
+        <h2 style="color: var(--primary); margin-top: 1rem;">Simulador de Distribuciones de Probabilidad</h2>
+        <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 900px; margin-bottom: 1.5rem;">
+          Explora de forma interactiva cómo cambian las formas de las distribuciones continuas y discretas al modificar sus parámetros matemáticos.
+        </p>
+      </header>
+
+      <div class="grid-layout">
+        <aside class="card" style="background-color: #f8fafc;">
+          <h2 style="margin-bottom: 15px;">Parámetros</h2>
+          
+          <div class="control-group">
+            <label for="distSel" style="color: var(--primary); font-weight: 800;">Tipo de Distribución</label>
+            <select id="distSel" style="border-color: var(--primary);">
+              <option value="normal">Distribución Normal</option>
+              <option value="binomial">Distribución Binomial</option>
+              <option value="poisson">Distribución de Poisson</option>
+              <option value="geometrica">Distribución Geométrica</option>
+              <option value="exponencial">Distribución Exponencial</option>
+            </select>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid var(--border-light); margin: 20px 0;">
+
+          <div id="ctrl-normal" class="dist-ctrl">
+            <div class="control-group">
+              <label>Media (\(\mu\)): <span id="val-mu" style="font-weight: bold; color: var(--warning);">0</span></label>
+              <input type="range" id="sl-mu" min="-10" max="10" step="0.5" value="0" style="accent-color: var(--warning);">
+            </div>
+            <div class="control-group">
+              <label>Desv. Estándar (\(\sigma\)): <span id="val-sigma" style="font-weight: bold; color: var(--warning);">1.5</span></label>
+              <input type="range" id="sl-sigma" min="0.5" max="5" step="0.1" value="1.5" style="accent-color: var(--warning);">
+            </div>
+          </div>
+
+          <div id="ctrl-binomial" class="dist-ctrl" style="display: none;">
+            <div class="control-group">
+              <label>Ensayos (\(n\)): <span id="val-n" style="font-weight: bold; color: var(--warning);">20</span></label>
+              <input type="range" id="sl-n" min="1" max="50" step="1" value="20" style="accent-color: var(--warning);">
+            </div>
+            <div class="control-group">
+              <label>Probabilidad de éxito (\(p\)): <span id="val-p-bin" style="font-weight: bold; color: var(--warning);">0.5</span></label>
+              <input type="range" id="sl-p-bin" min="0.05" max="0.95" step="0.05" value="0.5" style="accent-color: var(--warning);">
+            </div>
+          </div>
+
+          <div id="ctrl-poisson" class="dist-ctrl" style="display: none;">
+            <div class="control-group">
+              <label>Tasa de ocurrencia (\(\lambda\)): <span id="val-lambda-poi" style="font-weight: bold; color: var(--warning);">5</span></label>
+              <input type="range" id="sl-lambda-poi" min="1" max="20" step="1" value="5" style="accent-color: var(--warning);">
+            </div>
+          </div>
+
+          <div id="ctrl-geometrica" class="dist-ctrl" style="display: none;">
+            <div class="control-group">
+              <label>Probabilidad de éxito (\(p\)): <span id="val-p-geo" style="font-weight: bold; color: var(--warning);">0.3</span></label>
+              <input type="range" id="sl-p-geo" min="0.05" max="0.95" step="0.05" value="0.3" style="accent-color: var(--warning);">
+            </div>
+          </div>
+
+          <div id="ctrl-exponencial" class="dist-ctrl" style="display: none;">
+            <div class="control-group">
+              <label>Tasa (\(\lambda\)): <span id="val-lambda-exp" style="font-weight: bold; color: var(--warning);">1.0</span></label>
+              <input type="range" id="sl-lambda-exp" min="0.1" max="3" step="0.1" value="1.0" style="accent-color: var(--warning);">
+            </div>
+          </div>
+
+        </aside>
+
+        <main>
+          <div class="card">
+            
+            <div style="background-color: #1e293b; color: white; padding: 10px 15px; border-radius: 8px; margin-bottom: 15px;">
+              <div id="form-normal" class="dist-form">
+                <h3 style="margin-bottom: 5px; color: #facc15;">Distribución Normal (Continua)</h3>
+                $$ f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2} $$
+              </div>
+              <div id="form-binomial" class="dist-form" style="display: none;">
+                <h3 style="margin-bottom: 5px; color: #facc15;">Distribución Binomial (Discreta)</h3>
+                $$ P(X=k) = \binom{n}{k} p^k (1-p)^{n-k} $$
+              </div>
+              <div id="form-poisson" class="dist-form" style="display: none;">
+                <h3 style="margin-bottom: 5px; color: #facc15;">Distribución de Poisson (Discreta)</h3>
+                $$ P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!} $$
+              </div>
+              <div id="form-geometrica" class="dist-form" style="display: none;">
+                <h3 style="margin-bottom: 5px; color: #facc15;">Distribución Geométrica (Discreta)</h3>
+                $$ P(X=k) = (1-p)^{k-1} p $$
+              </div>
+              <div id="form-exponencial" class="dist-form" style="display: none;">
+                <h3 style="margin-bottom: 5px; color: #facc15;">Distribución Exponencial (Continua)</h3>
+                $$ f(x) = \lambda e^{-\lambda x} \quad (x \ge 0) $$
+              </div>
+            </div>
+
+            <div class="canvas-container" style="background-color: #111827; border-radius: 8px; padding: 10px;">
+              <canvas id="distCanvas" width="800" height="400"></canvas>
+            </div>
+            
+          </div>
+        </main>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

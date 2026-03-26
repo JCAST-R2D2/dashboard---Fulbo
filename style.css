@@ -1,0 +1,186 @@
+/* style.css — Tema Dashboard Académico Moderno */
+
+:root {
+  /* Paleta de colores más profesional y moderna */
+  --bg-body: #f1f5f9;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --secondary: #e2e8f0;
+  
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+
+  --border-light: #e2e8f0;
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.6;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Encabezados */
+h1, h2, h3 {
+  color: var(--text-main);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: 2rem; border-bottom: 2px solid var(--border-light); padding-bottom: 0.5rem; }
+h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+
+/* Tarjetas (Cards) */
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .grid-layout { grid-template-columns: 350px 1fr; }
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-light);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* Formularios y Controles */
+.control-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+select, input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background-color: #f8fafc;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+select:focus, input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+  background-color: #fff;
+}
+
+/* Botones */
+button {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+button:hover { background-color: var(--primary-hover); }
+button:active { transform: translateY(1px); }
+
+/* Canvas y Gráficos */
+.canvas-container {
+  background: #fff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Tablas */
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.9rem;
+}
+
+th {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+tr:last-child td { border-bottom: none; }
+tr:hover td { background-color: #f8fafc; }
+
+/* Alertas/Notas */
+.alert {
+  background-color: #eff6ff;
+  border-left: 4px solid var(--primary);
+  padding: 1rem;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: #1e3a8a;
+}
